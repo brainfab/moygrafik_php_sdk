@@ -28,6 +28,11 @@ class MoyGrafik
     public $companies;
 
     /**
+     * @var Users
+     */
+    public $users;
+
+    /**
      * @var HttpClient
      */
     protected $httpClient;
@@ -38,7 +43,9 @@ class MoyGrafik
     public function __construct()
     {
         $this->httpClient = new HttpClient();
+
         $this->companies = new Companies($this);
+        $this->users = new Users($this);
     }
 
     /**
