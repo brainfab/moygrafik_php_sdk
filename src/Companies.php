@@ -4,6 +4,7 @@ namespace Brainfab\MoyGrafik;
 
 use Brainfab\MoyGrafik\Entity\Company;
 use Brainfab\MoyGrafik\Entity\CompaniesCollection;
+use Brainfab\MoyGrafik\Entity\CompanyId;
 use GuzzleHttp\RequestOptions;
 
 /**
@@ -38,5 +39,28 @@ class Companies extends BaseResource
         ]);
 
         return $this->client->getHttpClient()->decodeResponse($res, CompaniesCollection::class);
+    }
+
+    /**
+     * Get company id by slug.
+     *
+     * @param string $slug
+     *
+     * @return CompanyId
+     */
+    public function getCompanyIdBySlug($slug)
+    {
+        $path = '/api/external/v1/company/slug/{slug}';
+        $url = $this->client->getHttpClient()->url($path, [
+            'slug' => $slug
+        ]);
+
+        $res = $this->client->getHttpClient()->get($url, [
+            'headers' => [
+                'Authorization' => $this->getAuthorizationHeader()
+            ]
+        ]);
+
+        return $this->client->getHttpClient()->decodeResponse($res, CompanyId::class);
     }
 }

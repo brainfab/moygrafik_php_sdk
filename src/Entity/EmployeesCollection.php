@@ -5,9 +5,9 @@ namespace Brainfab\MoyGrafik\Entity;
 use JMS\Serializer\Annotation as JMS;
 
 /**
- * Class CompaniesCollection.
+ * Class EmployeesCollection.
  */
-class CompaniesCollection extends Collection
+class EmployeesCollection extends Collection
 {
 
     /**
@@ -15,11 +15,11 @@ class CompaniesCollection extends Collection
      *
      * @var string
      */
-    protected $key = 'companies';
+    protected $key = 'employees';
 
     /**
      * @var array
-     * @JMS\Type("array<Brainfab\MoyGrafik\Entity\Company>")
+     * @JMS\Type("array<Brainfab\MoyGrafik\Entity\Employee>")
      */
-    public $companies;
+    public $employees;
 }

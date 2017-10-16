@@ -5,7 +5,7 @@ namespace Brainfab\MoyGrafik;
 abstract class BaseResource
 {
     /**
-     * @var ViRocket
+     * @var MoyGrafik
      */
     protected $client;
 
@@ -23,7 +23,7 @@ abstract class BaseResource
     /**
      * @return string
      */
-    public function getAuthorizationHeader()
+    protected function getAuthorizationHeader()
     {
         $token = $this->client->getAccessToken();
         $authToken = isset($token['access_token']) ? $token['access_token'] : null;

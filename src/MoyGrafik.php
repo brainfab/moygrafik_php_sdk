@@ -33,6 +33,11 @@ class MoyGrafik
     public $users;
 
     /**
+     * @var Employees
+     */
+    public $employees;
+
+    /**
      * @var HttpClient
      */
     protected $httpClient;
@@ -46,6 +51,7 @@ class MoyGrafik
 
         $this->companies = new Companies($this);
         $this->users = new Users($this);
+        $this->employees = new Employees($this);
     }
 
     /**

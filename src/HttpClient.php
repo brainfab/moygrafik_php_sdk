@@ -58,7 +58,7 @@ class HttpClient
      *
      * @return string
      */
-    protected function url($path = '', array $params = [])
+    public function url($path = '', array $params = [])
     {
         if (substr($path, 0, 1) === '/') {
             $path = substr($path, 1);
@@ -90,7 +90,7 @@ class HttpClient
     }
 
     /**
-     * @param array $data
+     * @param array|object $data
      *
      * @return string
      */
