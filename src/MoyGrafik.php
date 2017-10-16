@@ -38,6 +38,11 @@ class MoyGrafik
     public $employees;
 
     /**
+     * @var Presence
+     */
+    public $presence;
+
+    /**
      * @var HttpClient
      */
     protected $httpClient;
@@ -52,6 +57,7 @@ class MoyGrafik
         $this->companies = new Companies($this);
         $this->users = new Users($this);
         $this->employees = new Employees($this);
+        $this->presence = new Presence($this);
     }
 
     /**
