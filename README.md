@@ -8,6 +8,9 @@ Require this package with composer:
 
 `` composer require brainfab/moygrafik_php_sdk ``
 
+## Documentation
+Check [wiki](https://github.com/brainfab/moygrafik_php_sdk/wiki) for full documentation
+
 Usage example:
 --------------
 
