@@ -42,6 +42,33 @@ class Companies extends BaseResource
     }
 
     /**
+     * Get Company.
+     *
+     * @param Company|integer $company
+     *
+     * @return Company|integer
+     */
+    public function getCompany($company)
+    {
+        if ($company instanceof Company) {
+            $company = $company->id;
+        }
+
+        $path = '/api/external/v1/companies/{id}';
+        $url = $this->client->getHttpClient()->url($path, [
+            'id' => $company
+        ]);
+
+        $res = $this->client->getHttpClient()->get($url, [
+            'headers' => [
+                'Authorization' => $this->getAuthorizationHeader()
+            ]
+        ]);
+
+        return $this->client->getHttpClient()->decodeResponse($res, Company::class);
+    }
+
+    /**
      * Get company id by slug.
      *
      * @param string $slug
