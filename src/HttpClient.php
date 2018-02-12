@@ -48,7 +48,7 @@ class HttpClient
 
         \Doctrine\Common\Annotations\AnnotationRegistry::registerAutoloadNamespace(
             'JMS\Serializer\Annotation',
-            __DIR__.'/../vendor/jms/serializer/src'
+            __DIR__.'/../../../jms/serializer/src'
         );
     }
 
