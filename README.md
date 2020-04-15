@@ -42,7 +42,7 @@ if (isset($_SESSION['_token'])) {
     $client->setAccessToken($_SESSION['_token']);
 }
 
-$companies = $client->companies->listCompanies();
+$companies = $client->companies()->listCompanies();
 
 foreach ($companies as $company) {
     echo $company->name . "<br>";
