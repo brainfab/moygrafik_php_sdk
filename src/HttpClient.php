@@ -5,10 +5,10 @@ namespace Brainfab\MoyGrafik;
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
+use Doctrine\Common\Annotations\AnnotationRegistry;
+use JMS\Serializer\SerializerBuilder;
 
 /**
- * Class HttpClient
- *
  * @method Client get(string|UriInterface $uri, array $options = [])
  * @method Client head(string|UriInterface $uri, array $options = [])
  * @method Client put(string|UriInterface $uri, array $options = [])
@@ -24,47 +24,26 @@ use Psr\Http\Message\UriInterface;
  */
 class HttpClient
 {
-    /**
-     * @var string
-     */
-    private $host = 'https://www.moygrafik.ru';
+    private const BASE_HOST = 'https://www.moygrafik.ru';
 
-    /**
-     * @var Client
-     */
     private $client;
 
-    /**
-     * HttpClient constructor.
-     */
-    public function __construct()
+    public function __construct(Client $client = null)
     {
-        $this->client = new Client([
-            'base_uri' => $this->host,
-            'debug'    => false
-        ]);
+        $this->client = $client ?? new Client(['base_uri' => self::BASE_HOST]);
 
-        $this->serializer = \JMS\Serializer\SerializerBuilder::create()->build();
-
-        \Doctrine\Common\Annotations\AnnotationRegistry::registerAutoloadNamespace(
-            'JMS\Serializer\Annotation',
-            __DIR__.'/../../../jms/serializer/src'
-        );
+        AnnotationRegistry::registerLoader('class_exists');
+        $this->serializer = SerializerBuilder::create()->build();
     }
 
-    /**
-     * @param string $path
-     * @param array  $params
-     *
-     * @return string
-     */
-    public function url($path = '', array $params = [])
+    public function url(string $path, array $params = []): string
     {
         if (substr($path, 0, 1) === '/') {
             $path = substr($path, 1);
         }
+
         foreach ($params as $paramKey => $paramValue) {
-            $pathVar = '{'.$paramKey.'}';
+            $pathVar = '{' . $paramKey . '}';
             if (strpos($path, $pathVar) !== false) {
                 $path = str_replace($pathVar, $paramValue, $path);
                 unset($params[$paramKey]);
@@ -72,40 +51,29 @@ class HttpClient
         }
 
         if (count($params)) {
-            $path .= '?'.http_build_query($params);
+            $path .= '?' . http_build_query($params);
         }
 
-        return '/'.$path;
+        return '/' . $path;
     }
 
-    /**
-     * @param ResponseInterface $response
-     * @param string            $type
-     *
-     * @return mixed
-     */
-    public function decodeResponse(ResponseInterface $response, $type)
+    public function decodeResponse(ResponseInterface $response, string $type): object
     {
         return $this->serializer->deserialize($response->getBody()->getContents(), $type, 'json');
     }
 
     /**
      * @param array|object $data
-     *
-     * @return string
      */
-    public function encodeRequestData($data)
+    public function encodeRequestData($data): string
     {
         return $this->serializer->serialize($data, 'json');
     }
 
     /**
-     * @param string $name
-     * @param array  $arguments
-     *
      * @return mixed
      */
-    public function __call($name, array $arguments = [])
+    public function __call(string $name, array $arguments = [])
     {
         if (method_exists($this, $name)) {
             return call_user_func_array([$this, $name], $arguments);

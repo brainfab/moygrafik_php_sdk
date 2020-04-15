@@ -4,9 +4,6 @@ namespace Brainfab\MoyGrafik\Entity;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- * Class PresenceTrackFaceDetectData.
- */
 class PresenceTrackFaceDetectData
 {
     /**

@@ -2,41 +2,32 @@
 
 namespace Brainfab\MoyGrafik;
 
-use Brainfab\MoyGrafik\Entity\Company;
-use Brainfab\MoyGrafik\Entity\PresenceTrack;
+use Brainfab\MoyGrafik\Entity\AbstractPresenceTrack;
 use GuzzleHttp\RequestOptions;
 
-/**
- * Presence.
- */
 class Presence extends BaseResource
 {
-    const TRACK_TYPE_MANUAL = 'manual';
-    const TRACK_TYPE_ROUTER = 'router';
-    const TRACK_TYPE_DESKTOP = 'desktop';
-    const TRACK_TYPE_MOBILE = 'mobile';
-    const TRACK_TYPE_FACE_DETECT = 'face_detect';
+    private const API_PATH = '/api/external/v1/track/{company_id}/{type}';
 
-    const TRACK_ACTION_START = 'start';
-    const TRACK_ACTION_STOP = 'stop';
-    const TRACK_ACTION_TOGGLE = 'toggle';
+    public const TRACK_TYPE_MANUAL = 'manual';
+    public const TRACK_TYPE_ROUTER = 'router';
+    public const TRACK_TYPE_DESKTOP = 'desktop';
+    public const TRACK_TYPE_MOBILE = 'mobile';
+    public const TRACK_TYPE_FACE_DETECT = 'face_detect';
+
+    public const TRACK_ACTION_START = 'start';
+    public const TRACK_ACTION_STOP = 'stop';
+    public const TRACK_ACTION_TOGGLE = 'toggle';
 
     /**
      * Track employee presence.
-     *
-     * @param Company|integer $company
-     * @param PresenceTrack   $track
-     * @param string          $type
-     *
-     * @return PresenceTrack
      */
-    public function track($company, PresenceTrack $track)
+    public function track(int $companyId, AbstractPresenceTrack $track): AbstractPresenceTrack
     {
-        $companyId = $this->getCompanyId($company);
         $httpClient = $this->client->getHttpClient();
         $data = $httpClient->encodeRequestData($track);
         $url = $httpClient->url(
-            '/api/external/v1/track/{company_id}/{type}',
+            self::API_PATH,
             [
                 'company_id' => $companyId,
                 'type'       => $track->getType()
@@ -52,20 +43,5 @@ class Presence extends BaseResource
         ]);
 
         return $this->client->getHttpClient()->decodeResponse($res, get_class($track));
-    }
-
-    /**
-     * @param Company|integer $company
-     * @param bool            $required
-     */
-    protected function getCompanyId($company, $required = true)
-    {
-        $companyId = (int)($company instanceof Company ? $company->id : $company);
-
-        if ($required && empty($companyId)) {
-            throw new \InvalidArgumentException('Company id is required.');
-        }
-
-        return $companyId;
     }
 }

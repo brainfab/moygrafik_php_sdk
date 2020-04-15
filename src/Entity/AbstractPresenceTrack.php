@@ -5,10 +5,7 @@ namespace Brainfab\MoyGrafik\Entity;
 use Brainfab\MoyGrafik\Presence;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- * Class PresenceTrack.
- */
-abstract class PresenceTrack extends Entity
+abstract class AbstractPresenceTrack extends AbstractEntity
 {
     /**
      * @JMS\Type("array<string, string>")

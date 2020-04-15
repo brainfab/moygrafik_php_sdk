@@ -4,10 +4,7 @@ namespace Brainfab\MoyGrafik\Entity;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- * Class Country.
- */
-class Country extends Entity
+class Country extends AbstractEntity
 {
     /**
      * @JMS\Type("integer")

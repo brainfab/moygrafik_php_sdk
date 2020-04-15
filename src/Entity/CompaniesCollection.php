@@ -2,24 +2,15 @@
 
 namespace Brainfab\MoyGrafik\Entity;
 
-use JMS\Serializer\Annotation as JMS;
+use JMS\Serializer\Annotation\Type;
 
-/**
- * Class CompaniesCollection.
- */
 class CompaniesCollection extends Collection
 {
-
-    /**
-     * Data collection property name.
-     *
-     * @var string
-     */
     protected $key = 'companies';
 
     /**
      * @var array
-     * @JMS\Type("array<Brainfab\MoyGrafik\Entity\Company>")
+     * @Type("array<Brainfab\MoyGrafik\Entity\Company>")
      */
     public $companies;
 }

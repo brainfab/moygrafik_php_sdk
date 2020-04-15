@@ -4,9 +4,6 @@ namespace Brainfab\MoyGrafik\Entity;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- * Class PresenceTrackMobileData.
- */
 class PresenceTrackMobileData
 {
     /**

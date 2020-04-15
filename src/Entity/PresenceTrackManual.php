@@ -5,10 +5,7 @@ namespace Brainfab\MoyGrafik\Entity;
 use Brainfab\MoyGrafik\Presence;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- * Class PresenceTrackManual.
- */
-class PresenceTrackManual extends PresenceTrack
+class PresenceTrackManual extends AbstractPresenceTrack
 {
     /**
      * @JMS\Type("Brainfab\MoyGrafik\Entity\PresenceTrackManualData")

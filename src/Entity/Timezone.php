@@ -4,10 +4,7 @@ namespace Brainfab\MoyGrafik\Entity;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- * Class Timezone.
- */
-class Timezone extends Entity
+class Timezone extends AbstractEntity
 {
     /**
      * @JMS\Type("string")

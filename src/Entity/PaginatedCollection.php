@@ -4,9 +4,6 @@ namespace Brainfab\MoyGrafik\Entity;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- * Class PaginatedCollection.
- */
 class PaginatedCollection extends Collection
 {
     /**

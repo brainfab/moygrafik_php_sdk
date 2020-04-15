@@ -7,14 +7,14 @@
         {
             "name": "Max Kovpak",
             "email": "max_kovpak@hotmail.com",
-            "homepage": "http://www.max-kovpak.com"
+            "homepage": "https://max-kovpak.com"
         }
     ],
     "version": "1.0.0-dev",
     "require": {
-        "php": ">=5.6",
+        "php": ">=7.2",
         "guzzlehttp/guzzle": "^6.2",
-        "jms/serializer": "^1.9"
+        "jms/serializer": "^3.6"
     },
     "autoload": {
         "psr-4": {

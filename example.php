@@ -28,11 +28,11 @@ if (isset($_SESSION['_token'])) {
 }
 
 //get current user profile
-$me = $client->users->me();
+$me = $client->users()->me();
 echo $me->firstName.' '.$me->lastName.'<br>';
 
 //get current user companies
-$companies = $client->companies->listCompanies();
+$companies = $client->companies()->listCompanies();
 foreach ($companies as $company) {
     echo $company->name . "<br>";
 }

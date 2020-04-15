@@ -4,10 +4,7 @@ namespace Brainfab\MoyGrafik\Entity;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- * Class EmployeeSettingMotivation.
- */
-class EmployeeSettingMotivation extends Entity
+class EmployeeSettingMotivation extends AbstractEntity
 {
     /**
      * @JMS\Type("boolean")

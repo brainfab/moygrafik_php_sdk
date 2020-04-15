@@ -2,10 +2,7 @@
 
 namespace Brainfab\MoyGrafik\Entity;
 
-/**
- * Class Entity.
- */
-abstract class Entity implements \ArrayAccess
+abstract class AbstractEntity implements \ArrayAccess
 {
     /**
      * @param mixed $offset

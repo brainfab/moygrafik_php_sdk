@@ -2,109 +2,75 @@
 
 namespace Brainfab\MoyGrafik\Entity;
 
-use JMS\Serializer\Annotation as JMS;
-
-class Collection extends Entity implements \Iterator, \Countable, \ArrayAccess
+class Collection extends AbstractEntity implements \Iterator, \Countable, \ArrayAccess
 {
-    /**
-     * Data collection property name.
-     *
-     * @var string
-     */
     protected $key = 'data';
 
-
-    /**
-     * Collection constructor.
-     *
-     * @param array $data
-     */
     public function __construct(array $data = [])
     {
         $this->{$this->key} = $data;
     }
 
-    /**
-     * @param mixed $offset
-     * @return bool
-     */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->{$this->key}[$offset]);
     }
 
-    /**
-     * @param mixed $offset
-     * @return mixed
-     */
     public function offsetGet($offset)
     {
         return $this->{$this->key}[$offset];
     }
 
-    /**
-     * @param mixed $offset
-     * @param mixed $value
-     */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         $this->{$this->key}[$offset] = $value;
     }
 
-    /**
-     * @param mixed $offset
-     */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->{$this->key}[$offset]);
     }
 
-    /**
-     * @return mixed
-     */
     public function current()
     {
         return current($this->{$this->key});
     }
 
-    /**
-     * @return mixed
-     */
     public function next()
     {
         return next($this->{$this->key});
     }
 
-    /**
-     * @return int|null|string
-     */
     public function key()
     {
         return key($this->{$this->key});
     }
 
-    /**
-     * @return bool
-     */
-    public function valid()
+    public function valid(): bool
     {
         $key = $this->key();
         return $key !== null && $key !== false;
     }
 
-    /**
-     * Rewind the Iterator to the first element.
-     */
-    public function rewind()
+    public function rewind(): void
     {
         reset($this->{$this->key});
     }
 
-    /**
-     * @return int
-     */
-    public function count()
+    public function count(): int
     {
         return count($this->{$this->key});
+    }
+
+    public function filter(callable $callback): self
+    {
+        $result = array_filter($this->{$this->key}, $callback);
+
+        return new static((array) $result);
+    }
+
+    public function first()
+    {
+        return reset($this->{$this->key});
     }
 }

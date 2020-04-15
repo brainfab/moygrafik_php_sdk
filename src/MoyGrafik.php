@@ -6,53 +6,18 @@ use GuzzleHttp\RequestOptions;
 
 class MoyGrafik
 {
+    private $companies;
+    private $users;
+    private $employees;
+    private $presence;
+    private $clientId;
+    private $clientSecret;
+    private $accessToken;
+    private $httpClient;
 
-    /**
-     * @var string
-     */
-    protected $clientId;
-
-    /**
-     * @var string
-     */
-    protected $clientSecret;
-
-    /**
-     * @var array
-     */
-    protected $accessToken;
-
-    /**
-     * @var Companies
-     */
-    public $companies;
-
-    /**
-     * @var Users
-     */
-    public $users;
-
-    /**
-     * @var Employees
-     */
-    public $employees;
-
-    /**
-     * @var Presence
-     */
-    public $presence;
-
-    /**
-     * @var HttpClient
-     */
-    protected $httpClient;
-
-    /**
-     * Constructor.
-     */
-    public function __construct()
+    public function __construct(HttpClient $client = null)
     {
-        $this->httpClient = new HttpClient();
+        $this->httpClient = $client ?? new HttpClient();
 
         $this->companies = new Companies($this);
         $this->users = new Users($this);
@@ -60,66 +25,62 @@ class MoyGrafik
         $this->presence = new Presence($this);
     }
 
-    /**
-     * @return HttpClient
-     */
-    public function getHttpClient()
+    public function getHttpClient(): HttpClient
     {
         return $this->httpClient;
     }
 
-    /**
-     * @return string
-     */
-    public function getClientId()
+    public function getClientId(): string
     {
         return $this->clientId;
     }
 
-    /**
-     * @param string $clientId
-     */
-    public function setClientId($clientId)
+    public function setClientId(string $clientId): void
     {
         $this->clientId = $clientId;
     }
 
-    /**
-     * @return string
-     */
-    public function getClientSecret()
+    public function getClientSecret(): string
     {
         return $this->clientSecret;
     }
 
-    /**
-     * @param string $clientSecret
-     */
-    public function setClientSecret($clientSecret)
+    public function setClientSecret(string $clientSecret)
     {
         $this->clientSecret = $clientSecret;
     }
 
-    /**
-     * @return array
-     */
-    public function getAccessToken()
+    public function getAccessToken(): array
     {
         return $this->accessToken;
     }
 
-    /**
-     * @param array $accessToken
-     */
-    public function setAccessToken(array $accessToken)
+    public function setAccessToken(array $accessToken): void
     {
         $this->accessToken = $accessToken;
     }
 
-    /**
-     * @param array $token
-     */
-    public function authenticate(array $token)
+    public function companies(): Companies
+    {
+        return $this->companies;
+    }
+
+    public function users(): Users
+    {
+        return $this->users;
+    }
+
+    public function employees(): Employees
+    {
+        return $this->employees;
+    }
+
+    public function presence(): Presence
+    {
+        return $this->presence;
+    }
+
+    public function authenticate(array $token): void
     {
         if (!empty($token['refresh_token'])) {
             $token['grant_type'] = 'refresh_token';

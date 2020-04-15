@@ -4,10 +4,7 @@ namespace Brainfab\MoyGrafik\Entity;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- * Class User.
- */
-class User extends Entity
+class User extends AbstractEntity
 {
     /**
      * @JMS\Type("integer")

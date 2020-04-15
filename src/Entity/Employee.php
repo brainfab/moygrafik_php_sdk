@@ -4,10 +4,7 @@ namespace Brainfab\MoyGrafik\Entity;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- * Class Employee.
- */
-class Employee extends Entity
+class Employee extends AbstractEntity
 {
     /**
      * @JMS\Type("integer")
@@ -68,6 +65,13 @@ class Employee extends Entity
      * @var integer
      */
     public $clid;
+
+    /**
+     * @JMS\Type("integer")
+     *
+     * @var integer
+     */
+    public $presenceCloseRule;
 
     /**
      * @JMS\Type("string")
